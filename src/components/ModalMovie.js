@@ -1,26 +1,25 @@
-import Modal from 'react-bootstrap/Modal'
-import Image from 'react-bootstrap/Image';
+import { Image } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-
+import Modal from 'react-bootstrap/Modal';
 function ModalMovie(props){
-
+   
     return (
         <>
-            <Modal show={props.showFlag} onHide={props.handleclose}>
+            <Modal show={props.handleshow} onHide={props.handleclose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{props.movieData.movie_name}</Modal.Title>
+                    <Modal.Title>{props.thisData.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Image src={props.movieData.image_path} rounded width='100%' />
-                    <p>{props.movieData.top_text}</p>
-                    <p>{props.movieData.tags}</p>
+                    <Image src={props.thisData.poster_path} rounded width='100%' />
+                    <p>{props.thisData.release_date}</p>
+                    <p>{props.thisData.overview}</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={props.handleclose}>
                         Close
                     </Button>
                     <Button variant="primary" >
-                        Save Changes
+                        add
                     </Button>
                 </Modal.Footer>
             </Modal>

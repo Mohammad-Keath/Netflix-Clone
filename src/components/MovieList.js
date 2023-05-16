@@ -1,41 +1,43 @@
+import FavList from './FavList';
 import Card from 'react-bootstrap/Card';
+import ModalMovie from './ModalMovie'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import ModalMovie from './ModalMovie';
 import { useState } from 'react';
 function MovieList(props){
-    const [show, setShow] = useState(false);
-    const [clickedMovie, setClickedMovie] = useState({});
-    const handleshow = (item) => {
+    const [show,setShow] = useState(false)
+    const [clickedData,setClickedData] = useState({})
+    const [favMovies,setFavMovies]=useState([])
+    const handleadd = (item)=>{
         setShow(true);
-        setClickedMovie(item)
+        setClickedData(item)
+        setFavMovies.push(item)
     }
-    const handleclose = () => {
-        setShow(false);
+    const handleclose =() =>{
+        setShow(false)
     }
-    return (
+    return(
         <>
-            <Row xs={1} md={4} className="g-4">
-                {props.favData.map((item, idx) => (
-                    <Col key={idx}>
-                        <Card>
-                            <Card.Img variant="top" src={item.image_path} />
-                            <Card.Body>
-                                <Card.Title>{item.movie_name}</Card.Title>
-                                <Card.Text>
-                                    <p>{item.top_text}</p>
-                                    <p>{item.tags}</p>
-                                </Card.Text>
-                                <Button variant="primary" onClick={() => { handleshow(item) }}>More Options</Button>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
-            <ModalMovie showFlag={show} handleclose={handleclose} movieData={clickedMovie} />
-        </>
-    )
-
+    <Row xs={1} md={4} className="g-4">
+    {props.moviesData.map((item, idx) => (
+        <Col key={idx}>
+        <Card>
+          <Card.Img variant="top" src={item.poster_path} />
+          <Card.Body>
+            <Card.Title>{item.title}</Card.Title>
+            <Card.Text>
+              <p>release date : {item.release_date}</p>
+               <p>overview : {item.overview}</p>
+            </Card.Text>
+            <Button variant="primary" onClick={handleadd}>add to favorite</Button>
+          </Card.Body>
+        </Card>
+      </Col>
+    ))}
+  </Row>
+  <ModalMovie handleshow = {show} handleclose = {handleclose} thisData={clickedData}/>
+  <FavList favMovies = {favMovies}/>
+   </> ) 
 }
 export default MovieList
